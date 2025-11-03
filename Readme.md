@@ -42,3 +42,7 @@ COMPLEMENTOS:
 d) Obtenga el nombre y apellidos del empleado(s) que tenga(n) el sueldo superior.
 e) Obtenga el nombre de la provincia(s) con mayor número de empleados.
 NOTA: Se recomienda hacer c y d juntos.
+
+
+Primer UML: 
+![alt text](image-2.png)
