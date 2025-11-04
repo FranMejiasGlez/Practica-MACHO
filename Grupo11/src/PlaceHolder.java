@@ -7,6 +7,6 @@
  *
  * @author DAM2
  */
-public class ClaseB {
+public class PlaceHolder {
     //aaa
 }
