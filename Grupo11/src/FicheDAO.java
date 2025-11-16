@@ -13,17 +13,17 @@ import java.util.List;
  * @author Mejias Gonzalez Francisco
  */
 public class FicheDAO {
-    
+
     public static boolean ff;
     private static byte longitRegistro = 73;
     public File fiche;
-    
+
     public FicheDAO(File fiche) {
         this.fiche = fiche;
     }
-    
+
     public List<Empleado> leerFichero(DataInputStream data) throws FileNotFoundException, IOException {
-        List<Empleado> lista = new LinkedList<Empleado>();
+        List<Empleado> lista = new LinkedList();
         Empleado emple;
         while (!FicheDAO.ff) {
             emple = leerRegistro(data);
@@ -33,20 +33,20 @@ public class FicheDAO {
         }
         return lista;
     }
-    
+
     public Empleado leerRegistro(DataInputStream data)
             throws FileNotFoundException, IOException {
         String nombreApes;
-        char caracterNombre;
+        char caracterNombre, sexo, tipoEmple;
         Provincia provincia;
-        Sexo sexo;
-        Tipo tipoEmple;
         float salario;
         byte mes, dia;
         short anio;
+        Sexo sexoFromChar;
+        Tipo tipoEmpleFromChar;
         Fecha fechaIngreso;
         Empleado emple = null;
-        
+
         try {
             //Leer nombreApes
             nombreApes = "";
@@ -58,7 +58,8 @@ public class FicheDAO {
             }
             nombreApes = nombreApes.trim();
             //Leer sexo
-            sexo = Sexo.fromCodigo(data.readChar());
+            sexo = data.readChar();
+            sexoFromChar = Sexo.fromCodigo(sexo);
             //Leer salario
 
             salario = data.readFloat();
@@ -72,20 +73,25 @@ public class FicheDAO {
             fechaIngreso = new Fecha(anio, mes, dia);
 
             //Leer tipo emple
-            tipoEmple = Tipo.fromCodigo(data.readChar());
+            tipoEmple = data.readChar();
+            tipoEmpleFromChar = Tipo.fromCodigo(tipoEmple);
             //Leer provincia emple
             provincia = Provincia.fromCodigo(data.readByte());
-            emple = new Empleado(nombreApes, sexo, salario, fechaIngreso, tipoEmple, provincia);
+            
+            //Construir el empleado con los datos leidos
+            emple = new Empleado(nombreApes, sexoFromChar,
+                    salario, fechaIngreso, tipoEmpleFromChar, provincia);
+            
         } catch (EOFException eofe) {
             ff = true;
             System.out.println("Fin de fichero");
         }
         return emple;
     }
-    
+
     public void escribir(DataOutputStream data, Empleado reg) {
-        
-        
+
+
         try {
             StringBuilder escribeNombre;
             //Escribir nombreApes maximo 30 caracteres
@@ -109,13 +115,13 @@ public class FicheDAO {
         } catch (IOException ioe) {
             System.out.println("Error de E/S al escribir empleado en fichero");
         }
-        
-        
+
+
     }
-    
+
     public int getNumeroRegistros() {
         long tamanio = fiche.length();
-        
+
         int numRegistros = (int) (tamanio / FicheDAO.longitRegistro);
         //System.out.println("DEBUG: Tamaño fichero = " + tamanio + " bytes");
         //System.out.println("DEBUG: Registros calculados = " + numRegistros);

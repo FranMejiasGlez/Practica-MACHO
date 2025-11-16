@@ -108,11 +108,9 @@ public class Empleado {
                 fechaIngreso, fechaIngreso.aniosTranscurridos(),
                 tipo, provincia);
     }
+    
     //@author andyj
-    /*public static final Comparator<Empleado> BY_SALARIO = Comparator.comparingDouble(Empleado::getSalario);
-     * public static final Comparator<Empleado> BY_SUELDO = Comparator.comparingDouble(Empleado::getSueldo);
-     * public static final Comparator<Empleado> BY_NOMBRE = Comparator.comparing(Empleado::getNomApe);
-     * public static final Comparator<Empleado> BY_FECHA = Comparator.comparing(Empleado::getFechaIngreso);*/
+
     public static final Comparator<Empleado> BY_SALARIO = new Comparator<Empleado>() {
         @Override
         public int compare(Empleado o1, Empleado o2) {

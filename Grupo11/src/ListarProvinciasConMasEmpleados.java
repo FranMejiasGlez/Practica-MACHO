@@ -3,15 +3,12 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Mejias Gonzalez Francisco
@@ -37,10 +34,16 @@ public class ListarProvinciasConMasEmpleados {
                     conteoProvincias.put(prov, 1);
                 }
             }
+            int maxEmpleados = Collections.max(conteoProvincias.values());
+
             for (Map.Entry<Provincia, Integer> entry : conteoProvincias.entrySet()) {
-                System.out.println("Provincia: " + entry.getKey()
-                        + " | " + "Empleados: " + entry.getValue());
+                if (entry.getValue() == maxEmpleados) {
+                    System.out.printf("Provincia: %s - %d empleados%n",
+                            entry.getKey(), entry.getValue());
+                }
             }
+            dis.close();
+            fis.close();
 
         } catch (IOException ioe) {
             System.out.println("Error de E/S en fichero");

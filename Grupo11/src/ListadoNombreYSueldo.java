@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /*
  * To change this template, choose Tools | Templates
@@ -40,7 +39,7 @@ public class ListadoNombreYSueldo {
             maxSueldo = empleadoMaxSueldo.getSueldo();
             for (Empleado empleado : listaEmple) {
                 if (empleado.getSueldo() == maxSueldo) {
-                    System.out.println(empleado.getNomApe());
+                    System.out.println(empleado.getNomApe() + " | " + empleado.getSueldo() + " €");
                 }
             }
         } catch (FileNotFoundException fnfe) {

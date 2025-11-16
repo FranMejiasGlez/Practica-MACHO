@@ -31,11 +31,20 @@ public class EscribeEmpleados {
                 new Empleado("Peña Vega Roberto", Sexo.HOMBRE, 1820, new Fecha((short) 2013, (byte) 4, (byte) 18), Tipo.FIJO, Provincia.SEVILLA),
                 new Empleado("Morales Cabrera Patricia", Sexo.MUJER, 1680, new Fecha((short) 2017, (byte) 8, (byte) 9), Tipo.COMISION, Provincia.JAEN),
                 new Empleado("Soto Herrera Francisco", Sexo.HOMBRE, 1540, new Fecha((short) 2020, (byte) 10, (byte) 12), Tipo.DOMICILIO, Provincia.HUELVA),
-                new Empleado("Velasco Campos Isabel", Sexo.MUJER, 1920, new Fecha((short) 2015, (byte) 12, (byte) 5), Tipo.FIJO, Provincia.ALMERIA),
+                new Empleado("Velasco Campos Isabel", Sexo.MUJER, 1920, new Fecha((short) 2015, (byte) 12, (byte) 5), Tipo.FIJO, Provincia.GRANADA),
                 new Empleado("Ramos Ortiz Andrés", Sexo.HOMBRE, 1770, new Fecha((short) 2018, (byte) 3, (byte) 28), Tipo.COMISION, Provincia.CORDOBA),
                 new Empleado("Guerrero Álvarez Beatriz", Sexo.MUJER, 1610, new Fecha((short) 2019, (byte) 9, (byte) 7), Tipo.FIJO, Provincia.GRANADA),
                 new Empleado("Carrillo Rubio Enrique", Sexo.HOMBRE, 1680, new Fecha((short) 2016, (byte) 6, (byte) 21), Tipo.DOMICILIO, Provincia.MALAGA),
-                new Empleado("Domínguez Parra Cristina", Sexo.MUJER, 1890, new Fecha((short) 2014, (byte) 2, (byte) 14), Tipo.FIJO, Provincia.CADIZ)
+                new Empleado("Domínguez Parra Cristina", Sexo.MUJER, 1890, new Fecha((short) 2014, (byte) 2, (byte) 14), Tipo.FIJO, Provincia.GRANADA),
+                new Empleado("Navarro Suárez Elena", Sexo.MUJER, 1710, new Fecha((short) 2018, (byte) 4, (byte) 11), Tipo.FIJO, Provincia.SEVILLA),
+                new Empleado("Flores Romero Javier", Sexo.HOMBRE, 1620, new Fecha((short) 2019, (byte) 8, (byte) 30), Tipo.COMISION, Provincia.SEVILLA),
+                new Empleado("Cano Blanco Marta", Sexo.MUJER, 1580, new Fecha((short) 2020, (byte) 5, (byte) 19), Tipo.DOMICILIO, Provincia.SEVILLA),
+                new Empleado("Medina Gómez Ricardo", Sexo.HOMBRE, 1850, new Fecha((short) 2015, (byte) 11, (byte) 2), Tipo.FIJO, Provincia.CORDOBA),
+                new Empleado("Ochoa Linares Verónica", Sexo.MUJER, 1720, new Fecha((short) 2017, (byte) 7, (byte) 13), Tipo.COMISION, Provincia.JAEN),
+                new Empleado("Vargas Ibáñez Raúl", Sexo.HOMBRE, 1650, new Fecha((short) 2019, (byte) 2, (byte) 27), Tipo.FIJO, Provincia.HUELVA),
+                new Empleado("Rosario Fuentes Claudia", Sexo.MUJER, 1800, new Fecha((short) 2016, (byte) 10, (byte) 8), Tipo.DOMICILIO, Provincia.ALMERIA),
+                new Empleado("Montoya Vázquez Santiago", Sexo.HOMBRE, 1690, new Fecha((short) 2018, (byte) 6, (byte) 16), Tipo.FIJO, Provincia.MALAGA),
+                new Empleado("Beltrán Nuñez Rosario", Sexo.MUJER, 1740, new Fecha((short) 2014, (byte) 9, (byte) 24), Tipo.COMISION, Provincia.GRANADA)
             };
 
             // Escribir empleados en el fichero
