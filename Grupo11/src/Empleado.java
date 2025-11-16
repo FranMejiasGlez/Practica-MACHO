@@ -89,10 +89,52 @@ public class Empleado {
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
+//author Mejias Gonzalez Francisco
 
-    public static final Comparator<Empleado> BY_SALARIO = Comparator.comparingDouble(Empleado::getSalario);
-    public static final Comparator<Empleado> BY_SUELDO = Comparator.comparingDouble(Empleado::getSueldo);
-    public static final Comparator<Empleado> BY_NOMBRE = Comparator.comparing(Empleado::getNomApe);
-    public static final Comparator<Empleado> BY_FECHA = Comparator.comparing(Empleado::getFechaIngreso);
-
+    @Override
+    public String toString() {
+        return String.format(
+                "Empleado {%n"
+                + "  Nombre: %s%n"
+                + "  Sexo: %s%n"
+                + "  Salario: %.2f€%n"
+                + "  Sueldo: %.2f€%n"
+                + "  Fecha Ingreso: %s%n"
+                + "  Años de Antigüedad: %d%n"
+                + "  Tipo: %s%n"
+                + "  Provincia: %s%n"
+                + "}",
+                nomApe, sexo, salario, getSueldo(),
+                fechaIngreso, fechaIngreso.aniosTranscurridos(),
+                tipo, provincia);
+    }
+    //@author andyj
+    /*public static final Comparator<Empleado> BY_SALARIO = Comparator.comparingDouble(Empleado::getSalario);
+     * public static final Comparator<Empleado> BY_SUELDO = Comparator.comparingDouble(Empleado::getSueldo);
+     * public static final Comparator<Empleado> BY_NOMBRE = Comparator.comparing(Empleado::getNomApe);
+     * public static final Comparator<Empleado> BY_FECHA = Comparator.comparing(Empleado::getFechaIngreso);*/
+    public static final Comparator<Empleado> BY_SALARIO = new Comparator<Empleado>() {
+        @Override
+        public int compare(Empleado o1, Empleado o2) {
+            return Float.compare(o1.getSalario(), o2.getSalario());
+        }
+    };
+    public static final Comparator<Empleado> BY_SUELDO = new Comparator<Empleado>() {
+        @Override
+        public int compare(Empleado o1, Empleado o2) {
+            return Float.compare(o1.getSueldo(), o2.getSueldo());
+        }
+    };
+    public static final Comparator<Empleado> BY_NOMBRE = new Comparator<Empleado>() {
+        @Override
+        public int compare(Empleado o1, Empleado o2) {
+            return o1.getNomApe().compareTo(o2.getNomApe());
+        }
+    };
+    public static final Comparator<Empleado> BY_FECHA = new Comparator<Empleado>() {
+        @Override
+        public int compare(Empleado o1, Empleado o2) {
+            return o1.getFechaIngreso().compareTo(o2.getFechaIngreso());
+        }
+    };
 }

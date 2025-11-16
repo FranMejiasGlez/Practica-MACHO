@@ -1,0 +1,124 @@
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ *
+ * @author Mejias Gonzalez Francisco
+ */
+public class FicheDAO {
+    
+    public static boolean ff;
+    private static byte longitRegistro = 73;
+    public File fiche;
+    
+    public FicheDAO(File fiche) {
+        this.fiche = fiche;
+    }
+    
+    public List<Empleado> leerFichero(DataInputStream data) throws FileNotFoundException, IOException {
+        List<Empleado> lista = new LinkedList<Empleado>();
+        Empleado emple;
+        while (!FicheDAO.ff) {
+            emple = leerRegistro(data);
+            if (emple != null) {
+                lista.add(emple);
+            }
+        }
+        return lista;
+    }
+    
+    public Empleado leerRegistro(DataInputStream data)
+            throws FileNotFoundException, IOException {
+        String nombreApes;
+        char caracterNombre;
+        Provincia provincia;
+        Sexo sexo;
+        Tipo tipoEmple;
+        float salario;
+        byte mes, dia;
+        short anio;
+        Fecha fechaIngreso;
+        Empleado emple = null;
+        
+        try {
+            //Leer nombreApes
+            nombreApes = "";
+            FicheDAO.ff = false;
+            //Construccion del nombre y apellidos caracter a caracter
+            for (int i = 1; i <= 30; i++) {
+                caracterNombre = data.readChar();
+                nombreApes = nombreApes + caracterNombre;
+            }
+            nombreApes = nombreApes.trim();
+            //Leer sexo
+            sexo = Sexo.fromCodigo(data.readChar());
+            //Leer salario
+
+            salario = data.readFloat();
+            //Leer anio ingreso
+            anio = data.readShort();
+            //Leer mes ingreso
+            mes = data.readByte();
+            //Leer dia ingreso
+            dia = data.readByte();
+            //Construir fechaIngreso
+            fechaIngreso = new Fecha(anio, mes, dia);
+
+            //Leer tipo emple
+            tipoEmple = Tipo.fromCodigo(data.readChar());
+            //Leer provincia emple
+            provincia = Provincia.fromCodigo(data.readByte());
+            emple = new Empleado(nombreApes, sexo, salario, fechaIngreso, tipoEmple, provincia);
+        } catch (EOFException eofe) {
+            ff = true;
+            System.out.println("Fin de fichero");
+        }
+        return emple;
+    }
+    
+    public void escribir(DataOutputStream data, Empleado reg) {
+        
+        
+        try {
+            StringBuilder escribeNombre;
+            //Escribir nombreApes maximo 30 caracteres
+            escribeNombre = new StringBuilder(reg.getNomApe().trim());
+            escribeNombre.setLength(30);
+            data.writeChars(escribeNombre.toString());
+            //Escribir sexo
+            data.writeChar(reg.getSexo().getCodigo());
+            //Escribir salario
+            data.writeFloat(reg.getSalario());
+            //Escribir anio ingreso
+            data.writeShort(reg.getFechaIngreso().getAnio());
+            //Escribir mes ingreso
+            data.writeByte(reg.getFechaIngreso().getMes());
+            //Escribir dia ingreso
+            data.writeByte(reg.getFechaIngreso().getDia());
+            //Escribir tipo empleado
+            data.writeChar(reg.getTipo().getCodigo());
+            //Escribir provincia empleado
+            data.writeByte(reg.getProvincia().getCodigo());
+        } catch (IOException ioe) {
+            System.out.println("Error de E/S al escribir empleado en fichero");
+        }
+        
+        
+    }
+    
+    public int getNumeroRegistros() {
+        long tamanio = fiche.length();
+        
+        int numRegistros = (int) (tamanio / FicheDAO.longitRegistro);
+        //System.out.println("DEBUG: Tamaño fichero = " + tamanio + " bytes");
+        //System.out.println("DEBUG: Registros calculados = " + numRegistros);
+        return numRegistros;
+    }
+}
