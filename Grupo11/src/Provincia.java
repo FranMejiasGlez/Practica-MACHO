@@ -8,35 +8,37 @@
  * @author andyj
  */
 public enum Provincia {
-    ALMERIA(1),
-    CADIZ(2),
-    CORDOBA(3),
-    GRANADA(4),
-    HUELVA(5),
-    JAEN(6),
-    MALAGA(7),
-    SEVILLA(8);
 
-    private final int codigo;
+    ALMERIA((byte) 1),
+    CADIZ((byte) 2),
+    CORDOBA((byte) 3),
+    GRANADA((byte) 4),
+    HUELVA((byte) 5),
+    JAEN((byte) 6),
+    MALAGA((byte) 7),
+    SEVILLA((byte) 8);
+    private final byte codigo;
 
-    Provincia(int codigo) {
+    Provincia(byte codigo) {
         this.codigo = codigo;
     }
 
-    public int getCodigo() {
+    public byte getCodigo() {
         return codigo;
     }
 
-    public static Provincia fromCodigo(int codigo) {
+    public static Provincia fromCodigo(byte codigo) {
         for (Provincia p : values()) {
-            if (p.codigo == codigo) return p;
+            if (p.codigo == codigo) {
+                return p;
+            }
         }
-        return null; 
+        return null;
     }
 
     @Override
     public String toString() {
-        
+
         return name();
     }
 }
