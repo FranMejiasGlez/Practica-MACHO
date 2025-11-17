@@ -65,13 +65,6 @@ public class Fecha implements Comparable<Fecha> {
         return meses;
     }
 
-    public boolean antesDe(Fecha otra) {
-        GregorianCalendar thisFecha = new GregorianCalendar(this.yyyy, this.mm - 1, this.dd);
-        GregorianCalendar otraFecha = new GregorianCalendar(otra.yyyy, otra.mm - 1, otra.dd);
-
-        return thisFecha.before(otraFecha);
-    }
-
     @Override
     public String toString() {
         return String.format("%02d-%02d-%04d", dd, mm, yyyy);
@@ -156,7 +149,10 @@ public class Fecha implements Comparable<Fecha> {
 
     @Override
     public int compareTo(Fecha otra) {
-        if (this.antesDe(otra)) {
+        GregorianCalendar thisFecha = new GregorianCalendar(this.yyyy, this.mm - 1, this.dd);
+        GregorianCalendar otraFecha = new GregorianCalendar(otra.yyyy, otra.mm - 1, otra.dd);
+        
+        if (thisFecha.before(otraFecha)) {
             return -1;
         }
         if (this.equals(otra)) {

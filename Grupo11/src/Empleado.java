@@ -19,7 +19,12 @@ public class Empleado {
     private Provincia provincia;
 
     public Empleado(String nomApe, Sexo sexo, float salario, Fecha fechaIngreso, Tipo tipo, Provincia provincia) {
-        this.nomApe = nomApe;
+        if(nomApe.length() <= 30){
+           this.nomApe = nomApe; 
+        } else {
+            this.nomApe = nomApe.substring(0, 30);
+        }
+        
         this.sexo = sexo;
         this.salario = salario;
         this.fechaIngreso = fechaIngreso;

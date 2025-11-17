@@ -37,7 +37,7 @@ public class FicheDAO {
     public Empleado leerRegistro(DataInputStream data)
             throws FileNotFoundException, IOException {
         String nombreApes;
-        char caracterNombre, sexo, tipoEmple;
+        char sexo, tipoEmple;
         Provincia provincia;
         float salario;
         byte mes, dia;
@@ -48,20 +48,13 @@ public class FicheDAO {
         Empleado emple = null;
 
         try {
-            //Leer nombreApes
-            nombreApes = "";
             FicheDAO.ff = false;
-            //Construccion del nombre y apellidos caracter a caracter
-            for (int i = 1; i <= 30; i++) {
-                caracterNombre = data.readChar();
-                nombreApes = nombreApes + caracterNombre;
-            }
-            nombreApes = nombreApes.trim();
+            //Leer nombreApes
+            nombreApes = data.readUTF().trim();
             //Leer sexo
             sexo = data.readChar();
             sexoFromChar = Sexo.fromCodigo(sexo);
             //Leer salario
-
             salario = data.readFloat();
             //Leer anio ingreso
             anio = data.readShort();
@@ -93,11 +86,12 @@ public class FicheDAO {
 
 
         try {
-            StringBuilder escribeNombre;
+            //StringBuilder escribeNombre;
             //Escribir nombreApes maximo 30 caracteres
-            escribeNombre = new StringBuilder(reg.getNomApe().trim());
-            escribeNombre.setLength(30);
-            data.writeChars(escribeNombre.toString());
+            //escribeNombre = new StringBuilder(reg.getNomApe().trim());
+            //escribeNombre.setLength(30);
+            //data.writeChars(escribeNombre.toString());
+            data.writeUTF(reg.getNomApe());
             //Escribir sexo
             data.writeChar(reg.getSexo().getCodigo());
             //Escribir salario
