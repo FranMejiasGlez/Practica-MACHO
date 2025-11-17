@@ -22,7 +22,7 @@ public class EscribeEmpleados {
             Empleado[] empleados = {
                 new Empleado("García López Juan", Sexo.HOMBRE, 1500, new Fecha((short) 2015, (byte) 3, (byte) 15), Tipo.FIJO, Provincia.SEVILLA),
                 new Empleado("Martínez Ruiz María", Sexo.MUJER, 1800, new Fecha((short) 2018, (byte) 7, (byte) 22), Tipo.FIJO, Provincia.JAEN),
-                new Empleado("Rodríguez González Carlos", Sexo.HOMBRE, 1600, new Fecha((short) 2019, (byte) 1, (byte) 10), Tipo.COMISION, Provincia.HUELVA),
+                new Empleado("Rodríguez González Carlos de la Montoya negra", Sexo.HOMBRE, 1600, new Fecha((short) 2019, (byte) 1, (byte) 10), Tipo.COMISION, Provincia.HUELVA),
                 new Empleado("Fernández Díaz Ana", Sexo.MUJER, 1700, new Fecha((short) 2017, (byte) 5, (byte) 8), Tipo.DOMICILIO, Provincia.ALMERIA),
                 new Empleado("López Sánchez Miguel", Sexo.HOMBRE, 1900, new Fecha((short) 2016, (byte) 9, (byte) 20), Tipo.FIJO, Provincia.CORDOBA),
                 new Empleado("Jiménez Moreno Laura", Sexo.MUJER, 1550, new Fecha((short) 2020, (byte) 2, (byte) 14), Tipo.COMISION, Provincia.GRANADA),
