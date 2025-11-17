@@ -15,7 +15,6 @@ import java.util.List;
 public class FicheDAO {
 
     public static boolean ff;
-    private static byte longitRegistro = 73;
     public File fiche;
 
     public FicheDAO(File fiche) {
@@ -70,11 +69,11 @@ public class FicheDAO {
             tipoEmpleFromChar = Tipo.fromCodigo(tipoEmple);
             //Leer provincia emple
             provincia = Provincia.fromCodigo(data.readByte());
-            
+
             //Construir el empleado con los datos leidos
             emple = new Empleado(nombreApes, sexoFromChar,
                     salario, fechaIngreso, tipoEmpleFromChar, provincia);
-            
+
         } catch (EOFException eofe) {
             ff = true;
             System.out.println("Fin de fichero");
@@ -114,11 +113,34 @@ public class FicheDAO {
     }
 
     public int getNumeroRegistros() {
-        long tamanio = fiche.length();
+        int numRegistros = 0;
+        boolean finFichero = false;
 
-        int numRegistros = (int) (tamanio / FicheDAO.longitRegistro);
-        //System.out.println("DEBUG: Tamaño fichero = " + tamanio + " bytes");
-        //System.out.println("DEBUG: Registros calculados = " + numRegistros);
+        try (DataInputStream data = new DataInputStream(
+                new java.io.FileInputStream(fiche))) {
+
+            while (!finFichero) {
+                try {
+                    // Intentar leer un registro completo
+                    data.readUTF();              // nombre
+                    data.readChar();             // sexo
+                    data.readFloat();            // salario
+                    data.readShort();            // año
+                    data.readByte();             // mes
+                    data.readByte();             // día
+                    data.readChar();             // tipo
+                    data.readByte();             // provincia
+
+                    numRegistros++;
+                } catch (EOFException eofe) {
+                    // Fin del fichero
+                    finFichero = true;
+                }
+            }
+        } catch (IOException ioe) {
+            System.out.println("Error al contar registros: " + ioe.getMessage());
+        }
+
         return numRegistros;
     }
 }
