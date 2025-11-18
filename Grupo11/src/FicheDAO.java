@@ -3,6 +3,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -47,7 +48,7 @@ public class FicheDAO {
         Empleado emple = null;
 
         try {
-            FicheDAO.ff = false;
+
             //Leer nombreApes
             nombreApes = data.readUTF().trim();
             //Leer sexo
@@ -85,11 +86,7 @@ public class FicheDAO {
 
 
         try {
-            //StringBuilder escribeNombre;
-            //Escribir nombreApes maximo 30 caracteres
-            //escribeNombre = new StringBuilder(reg.getNomApe().trim());
-            //escribeNombre.setLength(30);
-            //data.writeChars(escribeNombre.toString());
+
             data.writeUTF(reg.getNomApe());
             //Escribir sexo
             data.writeChar(reg.getSexo().getCodigo());
@@ -114,33 +111,30 @@ public class FicheDAO {
 
     public int getNumeroRegistros() {
         int numRegistros = 0;
-        boolean finFichero = false;
+        FicheDAO.ff = false;
 
         try (DataInputStream data = new DataInputStream(
-                new java.io.FileInputStream(fiche))) {
+                new FileInputStream(fiche))) {
 
-            while (!finFichero) {
+            while (!FicheDAO.ff) {
+
                 try {
                     // Intentar leer un registro completo
-                    data.readUTF();              // nombre
-                    data.readChar();             // sexo
-                    data.readFloat();            // salario
-                    data.readShort();            // año
-                    data.readByte();             // mes
-                    data.readByte();             // día
-                    data.readChar();             // tipo
-                    data.readByte();             // provincia
 
-                    numRegistros++;
+                    Empleado emple = leerRegistro(data);
+                    if (emple != null) {
+                        numRegistros++;
+                    }
                 } catch (EOFException eofe) {
                     // Fin del fichero
-                    finFichero = true;
+                    FicheDAO.ff = true;
                 }
+
             }
         } catch (IOException ioe) {
             System.out.println("Error al contar registros: " + ioe.getMessage());
         }
-
+        System.out.println(numRegistros + " Empleados totales.");
         return numRegistros;
     }
 }
