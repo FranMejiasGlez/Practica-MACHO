@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
+import FicheDAO.*;
 
 /**
  *
  * @author Mejias Gonzalez Francisco
+ * @Correcciones Mejias Gonzalez Francisco
  */
 public class Listado10oMasAnios {
 
@@ -25,19 +27,26 @@ public class Listado10oMasAnios {
         boolean seguir;
         BufferedReader teclado;
         int iterator = 0;
-        short contador = 0;
         float porcentaje;
 
         try {
-            fdao = new FicheDAO(fiche);
-            fis = new FileInputStream(fdao.fiche);
+            fdao = new FicheDAO();
+            fis = new FileInputStream(fiche);
             dis = new DataInputStream(fis);
-            //Inicializar ff
-            FicheDAO.ff = false;
+
             //  System.out.println("numero de empleados" + fdao.getNumeroRegistros(dis));
             System.out.println("Leyendo empleados...\n");
             //Leer empleados
-            listadoEmple = fdao.leerFichero(dis);
+            listadoEmple = new LinkedList<>();
+            Empleado emple;
+            while (!FicheDAO.isFf()) {
+                emple = fdao.leerRegistro(dis);
+                if (emple != null) {
+                    listadoEmple.add(emple);
+                }
+
+            }
+
             System.out.println("Listando empleados...");
             teclado = new BufferedReader(new InputStreamReader(System.in));
             seguir = true;
@@ -54,7 +63,7 @@ public class Listado10oMasAnios {
 
                 for (int i = 0; i < 2; i++) {
                     try {
-                        Empleado emple = listadoEmpleViejos.get(iterator);
+                        emple = listadoEmpleViejos.get(iterator);
 
                         System.out.println(emple.toString());
 
@@ -79,7 +88,7 @@ public class Listado10oMasAnios {
             System.out.println("Numero de empleados mayores o igual a 10 años: "
                     + listadoEmpleViejos.size());
 
-            porcentaje = (listadoEmpleViejos.size() / (float) fdao.getNumeroRegistros()) * 100;
+            porcentaje = (listadoEmpleViejos.size() / (float) listadoEmple.size()) * 100;
             System.out.println("Porcentaje de empleados con respecto al total --> " + porcentaje + " %");
 
 

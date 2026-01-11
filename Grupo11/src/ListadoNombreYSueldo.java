@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
+import FicheDAO.*;
 
 /*
  * To change this template, choose Tools | Templates
@@ -16,19 +16,28 @@ import java.util.List;
 /**
  *
  * @author Mejias Gonzalez Francisco
+ * @Correcciones Mejias Gonzalez Francisco
  */
 public class ListadoNombreYSueldo {
 
     public static void main(String[] args) {
-        List<Empleado> listaEmple = new LinkedList<Empleado>();
+        List<Empleado> listaEmple;
         File fiche = new File("fiche.dat");
-        FicheDAO fdao = new FicheDAO(fiche);
+        FicheDAO fdao = new FicheDAO();
         float maxSueldo;
 
         try {
             FileInputStream fis = new FileInputStream(fiche);
             DataInputStream dis = new DataInputStream(fis);
-            listaEmple = fdao.leerFichero(dis);
+            listaEmple = new LinkedList<>();
+            Empleado emple;
+
+            while (!FicheDAO.isFf()) {
+                emple = fdao.leerRegistro(dis);
+                if (emple != null) {
+                    listaEmple.add(emple);
+                }
+            }
             for (Empleado empleado : listaEmple) {
                 System.out.println("Apellidos Nombre: " + empleado.getNomApe()
                         + "\nSueldo: " + empleado.getSueldo() + " €");

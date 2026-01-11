@@ -1,3 +1,5 @@
+package FicheDAO;
+
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -9,6 +11,8 @@ import java.util.GregorianCalendar;
 /**
  *
  * @author andyj
+ * @Revision Mejias Gonzalez Francisco
+ * @Correcciones Mejias Gonzalez Francisco
  */
 public class Fecha implements Comparable<Fecha> {
 
@@ -91,16 +95,19 @@ public class Fecha implements Comparable<Fecha> {
 
     public static boolean esValida(short yyyy, byte mm, byte dd) {
         int diasDeMes;
-        
-        if(mm > 0 && mm <= 12 && dd > 0 && dd <= 31){
-            switch(mm){
-                case 4: case 6: case 9 :case 11:
-                diasDeMes = 30;
-                break;
+
+        if (mm > 0 && mm <= 12 && dd > 0 && dd <= 31) {
+            switch (mm) {
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    diasDeMes = 30;
+                    break;
                 case 2:
-                    if(Fecha.esBisiesto(yyyy, mm, dd)){
+                    if (Fecha.esBisiesto(yyyy, mm, dd)) {
                         diasDeMes = 29;
-                    } else{
+                    } else {
                         diasDeMes = 28;
                     }
                     break;
@@ -119,6 +126,7 @@ public class Fecha implements Comparable<Fecha> {
     public boolean esBisiesto() {
         return (yyyy % 4 == 0 && yyyy % 100 != 0) || (yyyy % 400 == 0);
     }
+
     public static boolean esBisiesto(short yyyy, byte mm, byte dd) {
         return (yyyy % 4 == 0 && yyyy % 100 != 0) || (yyyy % 400 == 0);
     }
@@ -127,31 +135,19 @@ public class Fecha implements Comparable<Fecha> {
         return yyyy;
     }
 
-    public void setAnio(short yyyy) {
-        this.yyyy = yyyy;
-    }
-
     public byte getMes() {
         return mm;
-    }
-
-    public void setMes(byte mm) {
-        this.mm = mm;
     }
 
     public byte getDia() {
         return dd;
     }
 
-    public void setDia(byte dd) {
-        this.dd = dd;
-    }
-
     @Override
     public int compareTo(Fecha otra) {
         GregorianCalendar thisFecha = new GregorianCalendar(this.yyyy, this.mm - 1, this.dd);
         GregorianCalendar otraFecha = new GregorianCalendar(otra.yyyy, otra.mm - 1, otra.dd);
-        
+
         if (thisFecha.before(otraFecha)) {
             return -1;
         }

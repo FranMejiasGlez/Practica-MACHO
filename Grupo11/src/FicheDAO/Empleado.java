@@ -1,3 +1,5 @@
+package FicheDAO;
+
 
 import java.util.Comparator;
 

@@ -1,4 +1,6 @@
 
+
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,22 +10,30 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+import FicheDAO.*;
 /**
  *
  * @author Mejias Gonzalez Francisco
+ * @Correcciones Mejias Gonzalez Francisco
  */
 public class ListarProvinciasConMasEmpleados {
 
     public static void main(String[] args) {
-        List<Empleado> listaEmple = new LinkedList<Empleado>();
+        List<Empleado> listaEmple;
         File fiche = new File("fiche.dat");
-        FicheDAO fdao = new FicheDAO(fiche);
+        FicheDAO fdao = new FicheDAO();
         Map<Provincia, Integer> conteoProvincias = new HashMap<>();
         try {
             FileInputStream fis = new FileInputStream(fiche);
             DataInputStream dis = new DataInputStream(fis);
-            listaEmple = fdao.leerFichero(dis);
+            listaEmple = new LinkedList<>();
+            Empleado emple;
+            while (FicheDAO.isFf() == false) {
+                emple = fdao.leerRegistro(dis);
+                if (emple != null) {
+                    listaEmple.add(emple);
+                }
+            }
 
             System.out.println("Provincia(s) con mayor numero de empleados: ");
             for (Empleado empleado : listaEmple) {

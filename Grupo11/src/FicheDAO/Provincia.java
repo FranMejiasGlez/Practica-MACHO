@@ -1,44 +1,42 @@
+package FicheDAO;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author andyj
+ * @Revision Mejias Gonzalez Francisco
+ * @Correcciones Mejias Gonzalez Francisco -->Quitar los numeros de las provincias
+ * Uso ordinal()+1 ( +1 porque empieza en 0) para que devuelva el numero de la provincia 
+ * 
  */
 public enum Provincia {
-
-    ALMERIA((byte) 1),
-    CADIZ((byte) 2),
-    CORDOBA((byte) 3),
-    GRANADA((byte) 4),
-    HUELVA((byte) 5),
-    JAEN((byte) 6),
-    MALAGA((byte) 7),
-    SEVILLA((byte) 8);
-    private final byte codigo;
-
-    Provincia(byte codigo) {
-        this.codigo = codigo;
-    }
-
+    ALMERIA,
+    CADIZ,
+    CORDOBA,
+    GRANADA,
+    HUELVA,
+    JAEN,
+    MALAGA,
+    SEVILLA;
+    
     public byte getCodigo() {
-        return codigo;
+        return (byte) (ordinal() + 1);
     }
-
+    
     public static Provincia fromCodigo(byte codigo) {
         for (Provincia p : values()) {
-            if (p.codigo == codigo) {
+            if (p.getCodigo() == codigo) {
                 return p;
             }
         }
         return null;
     }
-
+    
     @Override
     public String toString() {
-
         return name();
     }
 }
