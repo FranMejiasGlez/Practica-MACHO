@@ -3,7 +3,7 @@ package FicheDAO;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+import java.util.Math;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -48,25 +48,14 @@ public class Fecha implements Comparable<Fecha> {
 
         return aniosTranscurridos;
     }
+  public int aniosTranscurridos(GregorianCalendar fecha1, GregorianCalender fecha2) {
+       
+       
+        int aniosTranscurridos =fecha1.get(Calendar.YEAR)-fecha2.get(Calendar.YEAR);
 
-    public int mesesTranscurridos() {
-        GregorianCalendar hoy = new GregorianCalendar();
-        int yearHoy = hoy.get(Calendar.YEAR);
-        int monthHoy = hoy.get(Calendar.MONTH) + 1;
-        int dayHoy = hoy.get(Calendar.DAY_OF_MONTH);
+       
 
-        // Total months since year 0 for both dates
-        int totalMesesHoy = yearHoy * 12 + monthHoy;
-        int totalMesesFecha = this.yyyy * 12 + this.mm;
-
-        int meses = totalMesesHoy - totalMesesFecha;
-
-        // Adjust if current day is before stored day in this month
-        if (dayHoy < this.dd) {
-            meses--;
-        }
-
-        return meses;
+        return Math.abs(aniosTranscurridos);
     }
 
     @Override
