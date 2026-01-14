@@ -9,9 +9,10 @@ package FicheDAO;
  * @author andyj
  * @Revision Mejias Gonzalez Francisco
  * @Correcciones Mejias Gonzalez Francisco -->Quitar getCodigo
- * 
+ *
  */
 public enum Provincia {
+
     ALMERIA,
     CADIZ,
     CORDOBA,
@@ -23,13 +24,13 @@ public enum Provincia {
 
     public static Provincia fromCodigo(byte codigo) {
         for (Provincia p : values()) {
-            if (p.getCodigo() == codigo) {
+            if (p.ordinal() == codigo - 1) {
                 return p;
             }
         }
         return null;
     }
-    
+
     @Override
     public String toString() {
         return name();

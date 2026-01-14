@@ -78,7 +78,7 @@ public class EscribeEmpleados {
                 valido = true;
                 System.out.print("Introduce el número de una provincia: ");
                 for (Provincia prov : Provincia.values()) {
-                    System.out.println(prov.getCodigo() + "-" + Provincia.fromCodigo(prov.getCodigo()));
+                    System.out.println(prov.ordinal() + 1 + "-" + Provincia.fromCodigo(prov.ordinal() + 1));
                 }
                 try {
                     entrada = teclado.readLine();

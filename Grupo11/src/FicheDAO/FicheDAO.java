@@ -1,15 +1,10 @@
 package FicheDAO;
 
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -28,7 +23,7 @@ public class FicheDAO {
         return ff;
     }
 
-    public Empleado leerRegistro(DataInputStream data)
+    public static Empleado leerRegistro(DataInputStream data)
             throws FileNotFoundException, IOException {
         String nombreApes;
         char sexo, tipoEmple;
@@ -76,7 +71,7 @@ public class FicheDAO {
         return emple;
     }
 
-    public void escribir(DataOutputStream data, Empleado reg) throws IOException {
+    public static void escribir(DataOutputStream data) throws IOException {
 
 
         data.writeUTF(reg.getNomApe());
