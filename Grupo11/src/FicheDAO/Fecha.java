@@ -79,24 +79,6 @@ public int aniosTranscurridos(GregorianCalendar fecha1, GregorianCalendar fecha2
         return String.format("%02d-%02d-%04d", dd, mm, yyyy);
     }
 
-    public static Fecha fromString(String dateString) throws NumberFormatException {
-        //"dd-mm-yyyy"
-
-        if (!(dateString == null)) {
-            if (dateString.matches("^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}$")) {
-
-                String[] partes = dateString.split("-");
-                byte dd = Byte.parseByte(partes[0]);
-                byte mm = Byte.parseByte(partes[1]);
-                short yyyy = Short.parseShort(partes[2]);
-                if (esValida(yyyy, mm, dd)) {
-                    return new Fecha(yyyy, mm, dd);
-                }
-
-            }
-        }
-        return null;
-    }
 
     public static boolean esValida(short yyyy, byte mm, byte dd) {
         int diasDeMes;
