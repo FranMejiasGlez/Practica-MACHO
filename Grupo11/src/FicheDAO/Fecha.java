@@ -48,15 +48,31 @@ public class Fecha implements Comparable<Fecha> {
 
         return aniosTranscurridos;
     }
-  public int aniosTranscurridos(GregorianCalendar fecha1, GregorianCalender fecha2) {
-       
-       
-        int aniosTranscurridos =fecha1.get(Calendar.YEAR)-fecha2.get(Calendar.YEAR);
-
-       
-
-        return Math.abs(aniosTranscurridos);
+public int aniosTranscurridos(GregorianCalendar fecha1, GregorianCalendar fecha2) {
+    // Asegurar que fecha1 es la más reciente
+    GregorianCalendar fechaMayor, fechaMenor;
+    if (fecha1.after(fecha2)) {
+        fechaMayor = fecha1;
+        fechaMenor = fecha2;
+    } else {
+        fechaMayor = fecha2;
+        fechaMenor = fecha1;
     }
+    
+    int aniosTranscurridos = fechaMayor.get(Calendar. YEAR) - fechaMenor.get(Calendar.YEAR);
+    
+    // Ajustar si aún no se ha cumplido el aniversario en el año actual
+    int mesMayor = fechaMayor.get(Calendar.MONTH);
+    int mesMenor = fechaMenor. get(Calendar.MONTH);
+    int diaMayor = fechaMayor.get(Calendar.DAY_OF_MONTH);
+    int diaMenor = fechaMenor.get(Calendar.DAY_OF_MONTH);
+    
+    if (mesMayor < mesMenor || (mesMayor == mesMenor && diaMayor < diaMenor)) {
+        aniosTranscurridos--;
+    }
+    
+    return aniosTranscurridos;
+}
 
     @Override
     public String toString() {
