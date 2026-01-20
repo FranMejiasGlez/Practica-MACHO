@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,16 +30,14 @@ public class Listado10oMasAnios {
         short contador = 0;
         float porcentaje;
 
-        try {
             fdao = new FicheDAO(fiche);
-            fis = new FileInputStream(fdao.fiche);
-            dis = new DataInputStream(fis);
+
             //Inicializar ff
             FicheDAO.ff = false;
             //  System.out.println("numero de empleados" + fdao.getNumeroRegistros(dis));
             System.out.println("Leyendo empleados...\n");
             //Leer empleados
-            listadoEmple = fdao.leerFichero(dis);
+            listadoEmple = fdao.leerFichero();
             System.out.println("Listando empleados...");
             teclado = new BufferedReader(new InputStreamReader(System.in));
             seguir = true;
@@ -69,12 +69,15 @@ public class Listado10oMasAnios {
                 }
                 if (seguir) {
                     System.out.println("Pulsa Enter para mostrar los siguientes..");
-                    teclado.readLine();
+                    try {
+                        teclado.readLine();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Listado10oMasAnios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             } while (seguir);
             System.out.println("Lista terminada..");
-            dis.close();
-            fis.close();
+
 
             System.out.println("Numero de empleados mayores o igual a 10 años: "
                     + listadoEmpleViejos.size());
@@ -83,10 +86,6 @@ public class Listado10oMasAnios {
             System.out.println("Porcentaje de empleados con respecto al total --> " + porcentaje + " %");
 
 
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("Fichero no encontrado");
-        } catch (IOException ioe) {
-        }
 
 
 
