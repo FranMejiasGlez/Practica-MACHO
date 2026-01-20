@@ -1,3 +1,4 @@
+package FicheDAO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -32,35 +33,8 @@ public class FicheDAO {
                 // Ignorar error al cerrar
             }
             flujoLectura = null;
-            ff = false;
+
         }
-    }
-
-    public List<Empleado> leerFichero() {
-        List<Empleado> lista = new LinkedList<>();
-
-        // Limpieza inicial
-        cerrarFlujo();
-
-        try {
-            boolean fin = false;
-            while (!fin) {
-                Empleado emple = leerRegistro();
-
-                if (emple != null) {
-                    lista.add(emple);
-                } else {
-                    fin = true;
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error al leer fichero completo: " + e.getMessage());
-        } finally {
-            // Aseguramos que se cierra al terminar de leer todo el fichero
-            cerrarFlujo();
-        }
-
-        return lista;
     }
 
     public Empleado leerRegistro() throws IOException {
@@ -103,7 +77,7 @@ public class FicheDAO {
                     salario, fechaIngreso, tipoEmpleFromChar, provincia);
 
         } catch (EOFException eofe) {
-
+            FicheDAO.ff = true;
             cerrarFlujo();
 
         }
@@ -116,7 +90,7 @@ public class FicheDAO {
         DataOutputStream data = null;
         try {
             data = new DataOutputStream(new FileOutputStream(fiche, true));
-            
+
             data.writeUTF(reg.getNomApe());
             data.writeChar(reg.getSexo().getCodigo());
             data.writeFloat(reg.getSalario());
@@ -124,7 +98,7 @@ public class FicheDAO {
             data.writeByte(reg.getFechaIngreso().getMes());
             data.writeByte(reg.getFechaIngreso().getDia());
             data.writeChar(reg.getTipo().getCodigo());
-            data.writeByte(reg.getProvincia().getCodigo());
+            data.writeByte(reg.getProvincia().ordinal() + 1);//Ordinal mas 1 para que empieze en 1 si es la provincia 0
 
         } catch (IOException ioe) {
             System.out.println("Error de E/S al escribir empleado en fichero: " + ioe.getMessage());
@@ -137,38 +111,5 @@ public class FicheDAO {
                 }
             }
         }
-    }
-
-    public int getNumeroRegistros() {
-        int numRegistros = 0;
-        boolean finFichero = false;
-
-        cerrarFlujo();
-
-        try (DataInputStream data = new DataInputStream(
-                new java.io.FileInputStream(fiche))) {
-
-            while (!finFichero) {
-                try {
-                    // Intentar leer un registro completo
-                    data.readUTF();              // nombre
-                    data.readChar();             // sexo
-                    data.readFloat();            // salario
-                    data.readShort();            // año
-                    data.readByte();             // mes
-                    data.readByte();             // día
-                    data.readChar();             // tipo
-                    data.readByte();             // provincia
-
-                    numRegistros++;
-                } catch (EOFException eofe) {
-                    finFichero = true;
-                }
-            }
-        } catch (IOException ioe) {
-            System.out.println("Error al contar registros: " + ioe.getMessage());
-        }
-
-        return numRegistros;
     }
 }

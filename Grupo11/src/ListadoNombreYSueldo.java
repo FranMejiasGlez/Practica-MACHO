@@ -1,4 +1,5 @@
 
+import FicheDAO.FicheDAO;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +24,7 @@ public class ListadoNombreYSueldo {
     public static void main(String[] args) {
         List<Empleado> listaEmple;
         File fiche = new File("fiche.dat");
-        FicheDAO fdao = new FicheDAO();
+        FicheDAO fdao = new FicheDAO(fiche);
         float maxSueldo;
 
         try {
@@ -32,8 +33,8 @@ public class ListadoNombreYSueldo {
             listaEmple = new LinkedList<>();
             Empleado emple;
 
-            while (!FicheDAO.isFf()) {
-                emple = fdao.leerRegistro(dis);
+            while (!FicheDAO.ff) {
+                emple = fdao.leerRegistro();
                 if (emple != null) {
                     listaEmple.add(emple);
                 }

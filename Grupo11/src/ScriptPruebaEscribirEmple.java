@@ -1,12 +1,12 @@
 
-
-
+import FicheDAO.FicheDAO;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import FicheDAO.*;
+
 /**
  *
  * @author Mejias Gonzalez Francisco
@@ -15,7 +15,7 @@ public class ScriptPruebaEscribirEmple {
 
     public static void main(String[] args) {
         File fiche = new File("fiche.dat");
-        FicheDAO fdao = new FicheDAO();
+        FicheDAO fdao = new FicheDAO(fiche);
         try {
             FileOutputStream fos = new FileOutputStream(fiche);
             DataOutputStream dos = new DataOutputStream(fos);
@@ -51,7 +51,7 @@ public class ScriptPruebaEscribirEmple {
 
             // Escribir empleados en el fichero
             for (Empleado emp : empleados) {
-                fdao.escribir(dos, emp);
+                fdao.escribir(emp);
             }
 
             dos.close();

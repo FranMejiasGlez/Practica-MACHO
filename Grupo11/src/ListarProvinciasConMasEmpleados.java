@@ -1,6 +1,7 @@
 
 
 
+import FicheDAO.FicheDAO;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,15 +22,15 @@ public class ListarProvinciasConMasEmpleados {
     public static void main(String[] args) {
         List<Empleado> listaEmple;
         File fiche = new File("fiche.dat");
-        FicheDAO fdao = new FicheDAO();
+        FicheDAO fdao = new FicheDAO(fiche);
         Map<Provincia, Integer> conteoProvincias = new HashMap<>();
         try {
             FileInputStream fis = new FileInputStream(fiche);
             DataInputStream dis = new DataInputStream(fis);
             listaEmple = new LinkedList<>();
             Empleado emple;
-            while (FicheDAO.isFf() == false) {
-                emple = fdao.leerRegistro(dis);
+            while (FicheDAO.ff == false) {
+                emple = fdao.leerRegistro();
                 if (emple != null) {
                     listaEmple.add(emple);
                 }

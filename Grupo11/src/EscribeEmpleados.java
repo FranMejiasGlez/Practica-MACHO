@@ -1,4 +1,5 @@
 
+import FicheDAO.FicheDAO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -78,7 +79,7 @@ public class EscribeEmpleados {
                 valido = true;
                 System.out.print("Introduce el número de una provincia: ");
                 for (Provincia prov : Provincia.values()) {
-                    System.out.println(prov.ordinal() + 1 + "-" + Provincia.fromCodigo(prov.ordinal() + 1));
+                    System.out.println(prov.ordinal() + 1 + "-" + Provincia.fromCodigo((byte) (prov.ordinal() + 1)));
                 }
                 try {
                     entrada = teclado.readLine();
@@ -130,7 +131,7 @@ public class EscribeEmpleados {
             teclado = new BufferedReader(new InputStreamReader(System.in));
             fos = new FileOutputStream(fichero);
             dos = new DataOutputStream(fos);
-            fdao = new FicheDAO();
+            fdao = new FicheDAO(fichero);
 
             System.out.println("=== ESCRITURA DE EMPLEADOS ===\n");
 
@@ -138,7 +139,7 @@ public class EscribeEmpleados {
                 emple = pedirDatos();
 
                 if (emple != null) {
-                    fdao.escribir(dos, emple);
+                    fdao.escribir(emple);
                     System.out.println("Empleado guardado correctamente.\n");
                 }
 

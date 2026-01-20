@@ -1,4 +1,5 @@
 
+import FicheDAO.FicheDAO;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -30,17 +31,17 @@ public class Listado10oMasAnios {
         float porcentaje;
 
         try {
-            fdao = new FicheDAO();
+            fdao = new FicheDAO(fiche);
             fis = new FileInputStream(fiche);
             dis = new DataInputStream(fis);
 
-            //  System.out.println("numero de empleados" + fdao.getNumeroRegistros(dis));
+            
             System.out.println("Leyendo empleados...\n");
             //Leer empleados
             listadoEmple = new LinkedList<>();
             Empleado emple;
-            while (!FicheDAO.isFf()) {
-                emple = fdao.leerRegistro(dis);
+            while (!FicheDAO.ff) {
+                emple = fdao.leerRegistro();
                 if (emple != null) {
                     listadoEmple.add(emple);
                 }
